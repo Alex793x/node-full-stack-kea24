@@ -1,1 +1,2 @@
-# node-full-stack-kea24
+# KEA - Node Full-Stack Project Repo
+
