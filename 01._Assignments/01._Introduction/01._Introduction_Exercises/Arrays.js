@@ -16,7 +16,7 @@ console.log(b);
 const friends = [];
 
 // What a lonely array. Add at least 3 friend objects to it.  
-friends.push("Alex", "Bobby", "Timmothy");
+friends.push({name: "Alex", age: 30}, {name: "Bobby", age: 28}, {name: "Timmothy", age: 45});
 console.log(friends);
 
 
@@ -29,8 +29,7 @@ const significantMathNumbers = [0, 2.718, 3.14159, 1729];
 // programmatically means that no finger counting allowed. There is a method for this (finding index based of value). 
 
 const firstIndex = (() => {
-    const indexValues = significantMathNumbers.findIndex(num => num === 1729);
-    return indexValues;
+    return significantMathNumbers.findIndex(num => num === 1729);
 })();
 
 console.log(firstIndex);
@@ -70,8 +69,10 @@ console.log(dinnerTray);
 const lettersExpanded = ["a", "b", "c", "d", "e", "f", "g", "h"];
 
 // log every second char in the array starting from b
-const logger = (()=>{
-    lettersExpanded.forEach((char, index) => index % 2 !== 0 ? console.log(char) : '');
+(() => {
+    for (let i = 2; i < lettersExpanded.length; i += 2) {
+        console.log(lettersExpanded[i]);
+    }
 })();
 
 

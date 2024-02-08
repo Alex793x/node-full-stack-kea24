@@ -13,12 +13,12 @@ console.log(messageOfObject);
 // Exercise 2 - Defining an object. 
 
 // Create an object that has your name and age. 
-const Object = {
+const newObject = {
     name: "Alex",
     age: 30
 }
 
-console.log(Object)
+console.log(newObject)
 
 // --------------------------------------
 // Exercise 3 - Add a key-value pair 
