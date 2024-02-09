@@ -1,27 +1,54 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="34ecd8cc-f7ca-4dab-9649-cb80c389e84c" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/01._Assignments/01._Introduction/01._Introduction_Exercises/Arrays.js" beforeDir="false" afterPath="$PROJECT_DIR$/01._Assignments/01._Introduction/01._Introduction_Exercises/Arrays.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/01._Assignments/01._Introduction/01._Introduction_Exercises/Objects.js" beforeDir="false" afterPath="$PROJECT_DIR$/01._Assignments/01._Introduction/01._Introduction_Exercises/Objects.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/01._Miscellaneous/variables_I.js" beforeDir="false" afterPath="$PROJECT_DIR$/01._Miscellaneous/variables_I.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/01._Assignments/02._Drinks_Assignment/app.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/01._Assignments/02._Drinks_Assignment/package.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/01._Miscellaneous/functions.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/02._FirstServer/app.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/02._FirstServer/build_tools.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/02._FirstServer/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="TypeScript File" />
+        <option value="JavaScript File" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="KubernetesApiProvider"><![CDATA[{
+  "contexts": [
+    {
+      "name": "docker-desktop",
+      "originalNamespace": "intellichat"
+    }
+  ],
+  "isMigrated": true
+}]]></component>
+  <component name="KubernetesSettings">
+    <option name="contextName" value="docker-desktop" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "customColor": "",
-  "associatedIndex": 3
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 3
+}</component>
   <component name="ProjectId" id="2c6Luck8UkgW85OeImRaRjgqjGg" />
   <component name="ProjectViewState">
     <option name="showLibraryContents" value="true" />
@@ -30,16 +57,25 @@
   "keyToString": {
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "git-widget-placeholder": "main",
+    "javascript.nodejs.core.library.configured.version": "21.2.0",
+    "javascript.nodejs.core.library.typings.version": "20.11.17",
     "kotlin-language-version-configured": "true",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
+    "ts.external.directory.path": "/Users/alexthh/Applications/IntelliJ IDEA Ultimate.app/Contents/plugins/javascript-impl/jsLanguageServicesImpl/external",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+    </key>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -55,7 +91,8 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1707427304474</updated>
-      <workItem from="1707427305587" duration="324000" />
+      <workItem from="1707427305587" duration="826000" />
+      <workItem from="1707463837280" duration="9600000" />
     </task>
     <servers />
   </component>

@@ -1,0 +1,12 @@
+# Example: maven, gradle, ant, npm, cargo
+
+
+Java            Node.js
+maven           npm
+pom.xml         package.json
+
+meta            meta
+dependencies    dependencies
+life cycles     scripts
+
+
