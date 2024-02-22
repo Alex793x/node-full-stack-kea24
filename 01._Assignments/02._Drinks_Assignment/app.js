@@ -88,6 +88,8 @@ app.get("/drinks/ingredients/:ingredient", (req, res) => {
 app.get("/drinks/priceUnder/:value", (req, res) => {
     const value = parseFloat(req.params.value);
     const drinksUnderValue = drinks.filter(drink => drink.priceValue < value);
+
+    if (drinksUnderValue.length < 1) return res.status(404).send({ data: "No drinks found, with requested ingredient" });
     res.send({ data: drinksUnderValue });
 });
 
@@ -103,9 +105,8 @@ app.get("/drinks/currency/:currency", (req, res) => {
 // Post ----
 app.post("/drinks", (req, res) => {
     const { name, ingredients, currency, priceValue } = req.body;
-    if (!name || !ingredients || !currency || !priceValue) {
-        return res.status(400).send({ data: "Missing information" });
-    }
+
+    if (!name || !ingredients || !currency || !priceValue) return res.status(400).send({ data: "Missing information" });
 
     const newDrink = {
         id: drinks.length + 1,
@@ -158,6 +159,33 @@ app.delete("/drinks/:id", (req, res) => {
 
     drinks.splice(drinkIndex, 1);
     res.status(204).send({data: "Drink has been deleted"});
+});
+
+
+
+// ---- EXTRA 
+
+// OPTION ----
+app.options("/drinks", (req, res) => {
+    res.header("Allow", "GET,POST,OPTIONS");
+    res.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
+    res.header("Access-Control-Allow-Headers", "Content-Type");
+    res.sendStatus(204);
+});
+
+
+// HEAD ----
+app.head("/drinks", (req, res) => {
+    res.header("Content-Type", "application/json");
+    res.status(200).end();
+});
+
+app.head("/drinks/:id", (req, res) => {
+    const id = parseInt(req.params.id);
+    const drinkExists = drinks.some(drink => drink.id === id);
+
+    if (!drinkExists) return res.status(404).end();
+    res.status(200).end();
 });
 
 
