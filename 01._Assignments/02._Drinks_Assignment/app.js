@@ -1,31 +1,41 @@
+const express = require("express");
+const app = express();
 
-const app = require("express")();
-app.listen(8080, () => console.log("Server is running on 8080"));
+
+app.use(express.json());
+
 
 const drinks = [
     {
+        id: 1,
         name: "Bloody Mary",
-        ingredients: ["vodka", "tomato juice", "spices"]
+        ingredients: ["vodka", "tomato juice", "spices"],
+        currency: "DKK",
+        priceValue: 32.0
     },
     {
+        id: 2,
         name: "Mojito",
         ingredients: ["lime", "rum", "sugarcane", "mint"],
         currency: "$",
         priceValue: 4.0
     },
     {
+        id: 3,
         name: "Black Russian",
         ingredients: ["vodka", "kahlua", "coffee beans"],
         currency: "DKK",
         priceValue: 25.00
     },
     {
+        id: 4,
         name: "White Russian",
         ingredients: ["vodka", "kahlua", "milk", "coffee beans"],
         currency: "$",
         priceValue: 4.0
     },
     {
+        id: 5,
         name: "Gin Fizz",
         ingredients: ["gin", "lemon juice", "sugar"],
         currency: "DKK",
@@ -33,26 +43,124 @@ const drinks = [
     }
 ]
 
+
+// Get ---- 
 app.get("/drinks", (req, res) => {
-    res.send(drinks)
+    res.send({ data: drinks });
+});
+
+app.get("/drinks/:id", (req, res) => {
+    const id = isNaN(req.query.id) ? req.params.id : Number(req.query.id);
+    const drink = drinks.find(drink => drink.id === id);
+
+    if (drink === undefined) {
+        res.status(404).send({ data: "Drink not found" });
+    } else {
+        return res.send({ data: drink });
+    }
+});
+
+app.get("/drinks/name/:name", (req, res) => {
+    const name = req.params.name;
+    const drink = drinks.find(drink => drink.name === name);
+
+    if (drink.length < 1) res.status(404).send({ data: "Drink'/s not found" });
+
+    res.send({ data: drink });
+});
+
+
+app.get("/drinks/ingredients/:ingredient", (req, res) => {
+    const ingredient = req.params.ingredient;
+    const foundIngredient = drinks.some(
+        (drink) => drink.ingredients.includes(ingredient)
+    );
+
+    if (!foundIngredient) return res.status(404).send({ data: "Drinks not found" });
+
+    const filteredDrinksByIngredient = drinks.filter(
+        (drink) => drink.ingredients.includes(ingredient)
+    );
+    res.send({ data: filteredDrinksByIngredient });
+
+});
+
+app.get("/drinks/priceUnder/:value", (req, res) => {
+    const value = parseFloat(req.params.value);
+    const drinksUnderValue = drinks.filter(drink => drink.priceValue < value);
+    res.send({ data: drinksUnderValue });
+});
+
+app.get("/drinks/currency/:currency", (req, res) => {
+    const currency = req.params.currency;
+    const filteredDrinksOnCurrency = drinks.filter(drink => drink.currency === currency);
+
+    if (filteredDrinksOnCurrency.length < 1) return res.status(404).send({ data: "Drinks not found" });
+    res.send({ data: filteredDrinksOnCurrency });
 })
 
 
-app.get("/drinks/:name", (req, res) => {
-    const name = req.params.name;
-    const drink = drinks.find(drink => drink.name === name);
-    res.send(drink);
+// Post ----
+app.post("/drinks", (req, res) => {
+    const { name, ingredients, currency, priceValue } = req.body;
+    if (!name || !ingredients || !currency || !priceValue) {
+        return res.status(400).send({ data: "Missing information" });
+    }
+
+    const newDrink = {
+        id: drinks.length + 1,
+        name,
+        ingredients,
+        currency,
+        priceValue
+    };
+
+    drinks.push(newDrink);
+    res.status(201).send({ data: newDrink });
 });
 
-app.get("/drinks/:name/ingredients", (req, res) => {
-    const name = req.params.name;
-    const drink = drinks.find(drink => drink.name === name);
-    res.send(drink.ingredients);
+
+// Put -----
+app.put("/drinks/:id", (req, res) => {
+    const id = parseInt(req.params.id);
+    const { name, ingredients, currency, priceValue } = req.body;
+    const drinkIndex = drinks.findIndex(drink => drink.id === id);
+
+    if (drinkIndex === -1) return res.status(404).send({ data: "Drink not found" });
+
+    const updatedDrink = { id, name, ingredients, currency, priceValue };
+    drinks[drinkIndex] = updatedDrink;
+    res.send({ data: updatedDrink });
 });
 
 
-app.get("drinks/:priceUnder/:value", (req, res) => {
-    const value = Number(req.params.value);
-    const drinksUnderValue = drinks.filter(drinks => drinks.priceValue < value);
-    res.send(drinksUnderValue);
+// Patch ----
+app.patch("/drinks/:id", (req, res) => {
+    const id = parseInt(req.params.id);
+    const drink = drinks.find(drink => drink.id === id);
+
+    if (!drink) return res.status(404).send({ data: "Drink not found" });
+
+    Object.entries(req.body).map(([key, value]) => {
+        drink[key] = value;
+    });
+
+    res.send({ data: drink });
 });
+
+
+// Delete -----
+app.delete("/drinks/:id", (req, res) => {
+    const id = parseInt(req.params.id);
+    const drinkIndex = drinks.findIndex(drink => drink.id === id);
+
+    if (drinkIndex === -1) return res.status(404).send({ data: "Drink not found" });
+
+    drinks.splice(drinkIndex, 1);
+    res.status(204).send({data: "Drink has been deleted"});
+});
+
+
+
+
+app.listen(8080, () => console.log("Server is running on 8080"));

@@ -4,16 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="34ecd8cc-f7ca-4dab-9649-cb80c389e84c" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/01._Assignments/02._Drinks_Assignment/app.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/01._Assignments/02._Drinks_Assignment/package.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/01._Miscellaneous/functions.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/02._FirstServer/app.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/02._FirstServer/build_tools.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/02._FirstServer/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="34ecd8cc-f7ca-4dab-9649-cb80c389e84c" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -92,7 +83,7 @@
       <option name="presentableId" value="Default" />
       <updated>1707427304474</updated>
       <workItem from="1707427305587" duration="826000" />
-      <workItem from="1707463837280" duration="9600000" />
+      <workItem from="1707463837280" duration="9899000" />
     </task>
     <servers />
   </component>

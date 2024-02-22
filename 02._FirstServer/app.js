@@ -1,5 +1,9 @@
+const express = require("express");
+const app = express();
 
-const app = require("express")();
+app.use(express.json());
+
+
 // kill -9 $(lsof -t -i:8080)
 app.listen(8080, () => console.log("Listening on port 8080"));
 
@@ -46,4 +50,16 @@ app.get("/wallet/:paymentOut", (req, res) => {
         res.send({balance: walletBalance});
 })
 
+///saySomethingsNiceAboutMe/:greeting?handsome=very&tall=indeed&cool=always
+app.get("/saySomethingsNiceAboutMe/:greeting", (req, res) => {
+    const greetingVariable = req.params.greeting
+    const queryParameters = req.query
+    queryParameters.handsome === "very" ? res.send({data: "thanks cool cat"}) : res.send({data: "ain't  no thang"})
+
+})
+
+
+app.post("/postman", (req, res) => {
+    console.log(req.body)
+})
 
