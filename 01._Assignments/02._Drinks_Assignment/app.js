@@ -106,8 +106,10 @@ app.get("/drinks/currency/:currency", (req, res) => {
 app.post("/drinks", (req, res) => {
     const { name, ingredients, currency, priceValue } = req.body;
 
-    if (!name || !ingredients || !currency || !priceValue) return res.status(400).send({ data: "Missing information" });
-
+    if (typeof name !== "string" || !Array.isArray(ingredients) || typeof currency !== "string" || typeof priceValue !== "number") {
+        return res.status(400).send({ data: "Invalid input format" });
+     }
+     
     const newDrink = {
         id: drinks.length + 1,
         name,
