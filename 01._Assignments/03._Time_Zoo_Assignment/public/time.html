@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f0f0f0;
+            color: #333;
+        }
+
+        header h1 {
+            text-align: center;
+            color: #0275d8;
+        }
+
+        .time-display .clock {
+            font-size: 24px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .schedule-display h2,
+        .calendar-display h2 {
+            color: #5cb85c;
+            margin-bottom: 15px;
+        }
+
+        .schedule li {
+            margin: 10px 0;
+            padding: 10px;
+            background-color: #ddd;
+            list-style-type: none;
+            border-radius: 5px;
+        }
+
+        .schedule li.due {
+            background-color: #f0ad4e;
+        }
+
+        .schedule li.completed {
+            background-color: #5cb85c;
+            color: #fff;
+        }
+
+        .schedule li.upcoming {
+            background-color: #5bc0de;
+            color: #fff;
+        }
+
+        .calendar {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            /* 7 columns for 7 days */
+            grid-auto-rows: minmax(120px, auto);
+            /* Minimum size, but can grow if needed */
+            gap: 10px;
+            width: 100%;
+            /* Make the calendar full width */
+            max-width: 1400px;
+            /* Maximum width of the calendar */
+            margin: 0 auto;
+            /* Center the calendar horizontally */
+        }
+
+        .calendar-row {
+            display: contents;
+            /* Allows the calendar-cell to be a direct child of the calendar in the grid layout */
+        }
+
+        .calendar-cell {
+            padding: 10px;
+            background-color: #e0e0e0;
+            border: 1px solid #ccc;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: start;
+            /* Align items to the top */
+            position: relative;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            /* Optional: adds a shadow for depth */
+        }
+
+        .calendar-cell .date {
+            position: absolute;
+            top: 5px;
+            left: 5px;
+            font-weight: bold;;
+        }
+
+        .calendar-cell .task {
+            margin-top: 20px;
+            background-color: #bada55;
+            padding: 5px;
+            font-size: 14px;
+            text-align: center;
+            border-radius: 3px;
+            width: calc(100% - 10px);
+            box-sizing: border-box;
+        }
+
+
+        .calendar-display {
+            display: flex;
+            flex-flow: column;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
+
+    <title>Zookeeping On Time</title>
+</head>
+
+<body>
+    <header>
+        <h1>Zookeeping On Time</h1>
+    </header>
+    <main>
+        <section class="time-display">
+            <div id="clock" class="clock"></div>
+        </section>
+        <section class="schedule-display">
+            <h2>Daily Tasks</h2>
+            <ul id="schedule" class="schedule"></ul>
+        </section>
+        <section class="calendar-display">
+            <h2>Monthly Calendar</h2>
+            <div id="calendar" class="calendar"></div>
+        </section>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            updateClock();
+            setInterval(updateClock, 1000);
+            updateSchedule();
+            generateCalendar();
+        });
+
+        function updateClock() {
+            const now = new Date();
+            document.getElementById('clock').innerText = now.toLocaleTimeString();
+        }
+
+        function updateSchedule() {
+            const schedule = [
+                { task: "Feed the lions", time: "09:00" },
+                { task: "Clean the elephant area", time: "10:00" },
+                { task: "Health check for the giraffes", time: "11:00" },
+                { task: "Lunch break", time: "12:00" },
+                { task: "Educational tour with visitors", time: "14:00" },
+                { task: "Feed the penguins", time: "16:00" },
+                { task: "Close the zoo", time: "17:00" }
+            ];
+
+            const now = new Date();
+            const currentTime = now.getHours() * 60 + now.getMinutes();
+            const scheduleElement = document.getElementById('schedule');
+            scheduleElement.innerHTML = '';
+
+            schedule.forEach(function (item) {
+                const taskTime = parseInt(item.time.split(':')[0]) * 60 + parseInt(item.time.split(':')[1]);
+                const li = document.createElement('li');
+                li.textContent = `${item.time} - ${item.task}`;
+                li.className = determineTaskClass(currentTime, taskTime);
+                scheduleElement.appendChild(li);
+            });
+        }
+
+        function determineTaskClass(currentTime, taskTime) {
+            if (currentTime > taskTime) {
+                return 'completed';
+            } else if (currentTime + 60 > taskTime) {
+                return 'due';
+            } else {
+                return 'upcoming';
+            }
+        }
+
+        function createDateElement(date, monthYear) {
+            const dateElement = document.createElement('div');
+            dateElement.className = 'date';
+
+            // If the date is not an empty string, format it
+            if (date !== '') {
+                const dateString = `${date} ${monthYear}`;
+                dateElement.textContent = dateString;
+            }
+
+            return dateElement;
+        }
+
+        function generateCalendar() {
+            const now = new Date();
+            const year = now.getFullYear();
+            const month = now.getMonth(); // 0-11
+            const firstDayOfMonth = new Date(year, month, 1);
+            const lastDayOfMonth = new Date(year, month + 1, 0);
+
+            const daysInMonth = lastDayOfMonth.getDate();
+            let currentDay = 1;
+
+            const startDayOfWeek = firstDayOfMonth.getDay(); // 0-6, 0 is Sunday
+
+            const calendar = document.getElementById('calendar');
+            calendar.innerHTML = ''; // Clear existing calendar
+
+            const monthYear = firstDayOfMonth.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+
+            for (let row = 0; row < 5; row++) {
+                const calendarRow = document.createElement('div');
+                calendarRow.className = 'calendar-row';
+                for (let cellCount = 0; cellCount < 7; cellCount++) { // 7 days a week
+                    const cell = document.createElement('div');
+                    cell.className = 'calendar-cell';
+
+                    if (row === 0 && cellCount < startDayOfWeek) {
+                        cell.appendChild(createDateElement('', ''));
+                    } else if (currentDay > daysInMonth) {
+                        cell.appendChild(createDateElement('', ''));
+                    } else {
+                        cell.appendChild(createDateElement(currentDay, monthYear));
+                        generateRandomTasks(cell, 2); // Generate up to 2 random tasks for the day
+                        currentDay++;
+                    }
+
+                    calendarRow.appendChild(cell);
+                }
+                calendar.appendChild(calendarRow);
+            }
+        }
+
+
+        document.addEventListener('DOMContentLoaded', function () {
+            updateClock();
+            setInterval(updateClock, 1000);
+            updateSchedule();
+            generateCalendar();
+        });
+
+
+
+        // Generates up to `maxTasks` random tasks for a day
+        function generateRandomTasks(cell, maxTasks) {
+            const tasks = ["Feed birds", "Inventory check", "Plant trees", "Clean water feature", "Maintenance work", "Prepare food"];
+            const taskCount = Math.floor(Math.random() * maxTasks) + 1; // At least 1 task
+            for (let i = 0; i < taskCount; i++) {
+                const taskIndex = Math.floor(Math.random() * tasks.length);
+                const task = document.createElement('div');
+                task.className = 'task';
+                task.textContent = tasks[taskIndex];
+                cell.appendChild(task);
+            }
+        }
+
+    </script>
+</body>
+
+</html>

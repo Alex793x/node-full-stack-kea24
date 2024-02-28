@@ -1,0 +1,22 @@
+{
+  "name": "03._time_zoo_assignment",
+  "version": "1.0.0",
+  "description": "School assignment, something about dates with my own creative touch about zookeping",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Alex793x/03_time_assignment_zookeper.git"
+  },
+  "author": "Alex Holmberg",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Alex793x/03_time_assignment_zookeper/issues"
+  },
+  "homepage": "https://github.com/Alex793x/03_time_assignment_zookeper#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}

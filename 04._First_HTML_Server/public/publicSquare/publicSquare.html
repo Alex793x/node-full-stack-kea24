@@ -14,8 +14,39 @@
     </style>
 </head>
 <body>
+    <h1>Public Square</h1>
+    <h3>Monument</h3>
+
     <div class="square">
         <p>This is a paragraph inside a square.</p>
     </div>
+
+    <h1>Known people</h1>
+    <h3 id="known-people-amount"></h3>
+
+    <script>
+        /* assignment: create a request to /knownpeople
+            show it in the h3 tag in the public square */
+
+        const knownPeopleTag = document.getElementById("known-people-amount");
+        const fetchKnownPeople = async () => {
+            try {
+                const response = await fetch("/knownpeople");
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                const result = await response.json();
+                console.log(result)
+                knownPeopleTag.textContent = result.data;
+            } catch (error) {
+                console.error('There has been a problem with your fetch operation:', error);
+                knownPeopleTag.textContent = 'Error fetching greeting';
+            }
+        }
+
+        fetchKnownPeople();
+
+    </script>
+
 </body>
 </html>

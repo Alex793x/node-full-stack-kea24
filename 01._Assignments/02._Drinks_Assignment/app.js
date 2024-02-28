@@ -160,7 +160,7 @@ app.delete("/drinks/:id", (req, res) => {
     if (drinkIndex === -1) return res.status(404).send({ data: "Drink not found" });
 
     drinks.splice(drinkIndex, 1);
-    res.status(204).send({data: "Drink has been deleted"});
+    res.status(200).send({data: "Drink has been deleted"});
 });
 
 

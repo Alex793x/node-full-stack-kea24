@@ -1,15 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <link rel="stylesheet" href="./homepage.css" -->
     <title>Homepage</title>
 </head>
+
 <body>
 
     <h1>You hit the page!</h1>
     <p>
         Hello World!
     </p>
+
+    <input id="input-name" placeholder="Your name here" />
+    <button id="greeting-btn">Get greeting</button>
+
+    <h2 id="greeting-text"></h2>
+
+    <a href="/publicSquare">Public Square</a>
+
+    <script>
+        const nameInput = document.getElementById("input-name");
+        const greetingButton = document.getElementById("greeting-btn");
+        const greetingText = document.getElementById("greeting-text");
+
+        greetingButton.addEventListener("click", fetchData);
+
+        async function fetchData() {
+            try {
+                const response = await fetch(`/greeting?name=${encodeURIComponent(nameInput.value)}`);
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                const result = await response.json();
+                greetingText.textContent = result.data;
+            } catch (error) {
+                console.error('There has been a problem with your fetch operation:', error);
+                greetingText.textContent = 'Error fetching greeting';
+            }
+        }
+    </script>
+
+    <!-- <script src="./homepage.js" type="module"></script> -->
 </body>
+
 </html>
