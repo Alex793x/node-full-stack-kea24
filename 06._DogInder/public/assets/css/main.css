@@ -1,0 +1,21 @@
+#logo {
+    text-decoration: none;
+}
+
+#logo img {
+    background-color: white;
+    border-radius: 50%;
+    width: 5em;
+    height: 5em;
+}
+
+
+body {
+    min-height: 92vh;
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1;
+} 
