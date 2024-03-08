@@ -7,8 +7,6 @@ const PORT = 8080;
 
 app.use(express.static("public"));
 
-
-getMatches();
 app.get("/", (req, res) => {
     res.sendFile(path.resolve("public/pages/homepage/homepage.html"));
 })
@@ -17,8 +15,8 @@ app.get("/matches", (req, res) => {
     res.sendFile(path.resolve("public/pages/matches/matches.html"));
 })
 
-app.get("/api/matches", (req, res) => {
-    const matches = getMatches();
+app.get("/api/matches", async (req, res) => {
+    const matches = await getMatches();
     res.send({data: matches})
 })
 

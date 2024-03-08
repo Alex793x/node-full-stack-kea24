@@ -6,14 +6,16 @@ import { fakerEN_IN } from "@faker-js/faker"
  * 
  * @param {number} numberOfMatches 
  */
-export default function getMatches(numberOfMatches = 10) {
-    const matches = [];
+export default async function getMatches(numberOfMatches = 10) {
+    const promises = [];
     for (let i = 0; i < numberOfMatches; i++) {
-        fetch("https://dog.ceo/api/breeds/image/random")
-            .then((response) => response.text())
-            .then((result) => matches.push(result.message));
+        const promise = fetch("https://dog.ceo/api/breeds/image/random")
+            .then((response) => response.json());
+        promises.push(promise);
     }
 
+    const results = await Promise.all(promises);
+    const matches = results.map((match) => ({...match, ...getIndiaProfile()}));
     return matches;
 
 }
@@ -25,7 +27,7 @@ function getIndiaProfile() {
         lastName: fakerEN_IN.person.lastName(),
         bio: fakerEN_IN.person.bio(),
         streetAddress: fakerEN_IN.location.streetAddress(),
-        city: fakerEN_IN.city()
+        city: fakerEN_IN.location.city(),
     }
 }
 

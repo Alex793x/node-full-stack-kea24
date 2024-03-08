@@ -1,5 +1,6 @@
 import express from "express";
 const app = express();
+import path from "path";
 
 app.use(express.json());
 
@@ -9,12 +10,24 @@ const friends = ["Alexander", "Mikkel", "Anders", "James", "John Doe"];
 
 
 app.get("/", (req, res) => {
-    res.sendFile(__dirname + "/public/homepage/homepage.html")
+    res.sendFile(path.resolve("public/homepage/homepage.html"))
 })
 
 app.get("/publicsquare", (req, res) => {
-    res.sendFile(__dirname + "/public/publicSquare/publicSquare.html");
+    res.sendFile(path.resolve("public/publicSquare/publicSquare.html"));
 })
+
+app.get("/treasuretrove", (req, res) => {
+    res.send({ data: "You found the treasure!" });
+});
+
+app.get("/secretpassphrase", (req, res) => {
+    if (req.query.passphrase !== "SesameOpenUp") {
+        return res.status(400).send({ data: "You need to provide a passphrase" });
+    } else {
+        res.redirect("/treasuretrove");
+    }
+});
 
 app.get("/greeting", (req, res) => {
     const visitedUserName = req.query.name;
