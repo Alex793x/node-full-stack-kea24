@@ -1,101 +1,71 @@
-<!DOCTYPE html>
-<html lang="en">
+<h1 id="dog-name"></h1>
+<h3 id="dog-bio"></h3>
+<div id="image-container"></div>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css">
-    <link rel="stylesheet" href="/assets/css/main.css">
-    <link rel="stylesheet" href="/assets/css/footer.css">
 
-    <title>DogInder</title>
-</head>
+<!-- Firefox has problems with detecting dragend: https://github.com/hammerjs/hammer.js/issues/692 -->
+<!-- Don't upgrade beyond version 2.0.1 https://github.com/hammerjs/hammer.js/releases/tag/2.0.1 -->
+<script src="/pages/matches/hammer.min.js"></script>
 
-<body>
-    <nav>
-        <a href="/"><img id="logo" src="/assets/images/DogInderLogo.png"></a>
-        <a href="/matches">Matches</a>
-        <a href="/contact">Contact</a>
-    </nav>
+<script>
+    let dogs = [];
+    const dogNameH1 = document.getElementById("dog-name")
+    const dogBioH3 = document.getElementById("dog-bio");
+    const imageContainerDiv = document.getElementById("image-container");
 
-    <main>
-        <h1 id="dog-name"></h1>
-        <h3 id="dog-bio"></h3>
-        <div id="image-container"></div>
-    </main>
-
-    <!-- Firefox has problems with detecting dragend: https://github.com/hammerjs/hammer.js/issues/692 -->
-    <!-- Don't upgrade beyond version 2.0.1 https://github.com/hammerjs/hammer.js/releases/tag/2.0.1 -->
-    <script src="/pages/matches/hammer.min.js"></script>
-
-    <script>
-        let dogs = [];
-        const dogNameH1 = document.getElementById("dog-name")
-        const dogBioH3 = document.getElementById("dog-bio");
-        const imageContainerDiv = document.getElementById("image-container");
-
-        function getDogs() {
-            fetch("/api/matches")
+    function getDogs() {
+        fetch("/api/matches")
             .then((res) => res.json())
             .then((result) => {
                 dogs = result.data
-                console.log(dogs)
                 createImageElement(dogs.pop())
             });
-        }
+    }
 
-        getDogs();
-        
-        function createImageElement(dog) {
-            dogNameH1.textContent = `${dog.firstName} ${dog.lastName}`; 
-            dogBioH3.textContent = dog.bio;
-            const img = document.createElement('img');
-            img.src = dog.message;
-            img.id = "dog-image";
-            // Ensure vertical scrolling is not affected on touch devices
-            img.style.touchAction = 'pan-y';
+    getDogs();
 
-            imageContainerDiv.innerHTML = "";
-            imageContainerDiv.appendChild(img);
+    function createImageElement(dog) {
+        dogNameH1.textContent = `${dog.firstName} ${dog.lastName}`;
+        dogBioH3.textContent = dog.bio;
+        const img = document.createElement('img');
+        img.src = dog.message;
+        img.id = "dog-image";
+        // Ensure vertical scrolling is not affected on touch devices
+        img.style.touchAction = 'pan-y';
 
-            const dogImageImg = document.getElementById('dog-image');
+        imageContainerDiv.innerHTML = "";
+        imageContainerDiv.appendChild(img);
 
-            setupHammerPanEvents(dogImageImg);
-        }
+        const dogImageImg = document.getElementById('dog-image');
 
-        function setupHammerPanEvents(dogImageImg) {
-            const hammertime = new Hammer(dogImageImg);
+        setupHammerPanEvents(dogImageImg);
+    }
 
-            hammertime.on('pan', (event) => {
-                // Calculate the new position based on the pan movement
-                const deltaX = event.deltaX;
+    function setupHammerPanEvents(dogImageImg) {
+        const hammertime = new Hammer(dogImageImg);
 
-                // Apply the transformation to the image
-                dogImageImg.style.transform = `translateX(${deltaX}px)`;
-            });
+        hammertime.on('pan', (event) => {
+            // Calculate the new position based on the pan movement
+            const deltaX = event.deltaX;
 
-            hammertime.on('panend', (event) => {
-                console.log(event.deltaX)
-                if (event.deltaX > 0) {
-                    console.log("Ended dragging to the right");
-                    getDogs();
-                } else {
-                    console.log("Ended dragging to the left");
-                    getDogs();
-                }
-                if (dogs.length > 0) {
-                    createImageElement(dogs.pop());
-                } else {
-                    getDogs();
-                }
-            });
-        }
-    </script>
+            // Apply the transformation to the image
+            dogImageImg.style.transform = `translateX(${deltaX}px)`;
+        });
 
-    <footer>
-        <p id="copyright-year"></p>
-    </footer>
-    <script src="/assets/js/footer.js"></script>
-</body>
+        hammertime.on('panend', (event) => {
+            console.log(event.deltaX)
+            if (event.deltaX > 0) {
+                console.log("Ended dragging to the right");
 
-</html>
+            } else {
+                console.log("Ended dragging to the left");
+
+            }
+            if (dogs.length > 0) {
+                createImageElement(dogs.pop());
+            } else {
+                getDogs();
+            }
+        });
+    }
+</script>

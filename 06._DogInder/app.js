@@ -1,6 +1,7 @@
 import express from "express";
-import path from "path";
 import getMatches from "./utils/matches.js"
+
+import { homepagePage, matchesPage, contactPage } from "./utils/readPages.js";
 
 const app = express();
 const PORT = 8080;
@@ -8,11 +9,11 @@ const PORT = 8080;
 app.use(express.static("public"));
 
 app.get("/", (req, res) => {
-    res.sendFile(path.resolve("public/pages/homepage/homepage.html"));
+    res.send(homepagePage);
 })
 
 app.get("/matches", (req, res) => {
-    res.sendFile(path.resolve("public/pages/matches/matches.html"));
+    res.send(matchesPage);
 })
 
 app.get("/api/matches", async (req, res) => {
@@ -21,7 +22,12 @@ app.get("/api/matches", async (req, res) => {
 })
 
 app.get("/contact", (req, res) => {
-    res.sendFile(path.resolve("public/pages/contact/contact.html"))
+    res.send(contactPage);
+})
+
+
+app.get("/page", (req, res) => {
+    res.send("")
 })
 
 app.listen(PORT, () => console.log("Server is listening on port", PORT));
