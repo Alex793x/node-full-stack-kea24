@@ -90,4 +90,3 @@ const discardedNumbers = [];
 numbers.forEach(num => (num > 6 || num < 0) ? discardedNumbers.push(num) : '')
 console.log(discardedNumbers)
 // --------------------------------------
-

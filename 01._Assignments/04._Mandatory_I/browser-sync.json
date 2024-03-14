@@ -1,0 +1,7 @@
+{
+    "proxy": "localhost:8080",
+    "files": ["public/**/*.{html,css,js}", "components/**/*.{html,css,js}","modules/**/*.{ts}", "assets/**/*.{html,css,js}", "utils/**/*.{html,css,js}"],
+    "ignore": ["node_modules"],
+    "port": 5001,
+    "reloadDelay": 500
+  }

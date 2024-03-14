@@ -1,4 +1,4 @@
-// --------------------------------------
+
 // Exercise 3 - Add numbers from string to float
 
 const numberOne = "1.10";
@@ -9,11 +9,6 @@ console.log(result)
 // add those two numbers and show the result
 // you cannot touch line 1 neither line 2
 
-
-// --------------------------------------
-
-
-// --------------------------------------
 // Exercise 4 - Add the numbers and the total with 2 decimals
 
 const anotherNumberOne = "1.10";
@@ -26,8 +21,6 @@ const anotherResult2 = (parseFloat(anotherNumberOne) + parseFloat(anotherNumberT
 console.log(anotherResult.toFixed(2))
 console.log(anotherResult2)
 
-
-// --------------------------------------
 // Exercise 5 - Decimals and average
 
 const one = 10;
@@ -38,11 +31,6 @@ const three = 98;
 const avg = (one + two + three) / 3;
 console.log(avg)
 
-
-
-
-
-// --------------------------------------
 // Exercise 6 - Get the character by index
 
 const letters = "abc";
@@ -57,11 +45,6 @@ const character4 = letters[2];
  console.log(character3);
  console.log(character4);
 
-
-
-
-
-// --------------------------------------
 // Exercise 7 - Replace
 
 const fact = "You are learning javascript!";
@@ -76,8 +59,5 @@ console.log(newFact)
 console.log(newFact2)
 console.log(newFact3)
 console.log(newFact4)
-
-
-// --------------------------------------
 
 
