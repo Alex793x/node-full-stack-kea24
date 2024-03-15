@@ -4,7 +4,29 @@
         {
             "src": "dist/app.js",
             "use": "@vercel/node",
-            "config": { "includeFiles": ["dist/**"] }
+            "config": {
+                "includeFiles": [
+                    "dist/**"
+                ]
+            }
+        },
+        {
+            "src": "*.html",
+            "use": "@vercel/static",
+            "config": {
+                "includeFiles": [
+                    "dist/**"
+                ]
+            }
+        },
+        {
+            "src": "*.html",
+            "use": "@vercel/static",
+            "config": {
+                "includeFiles": [
+                    "dist/**"
+                ]
+            }
         }
     ],
     "routes": [
