@@ -4,10 +4,10 @@
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
     "noImplicitAny": true,
-    "outDir": "./dist",
+    "outDir": "dist",
     "target": "esnext",
     "module": "esnext",
-    "rootDir": "./",                                 
+    "rootDir": ".",                                 
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
 
