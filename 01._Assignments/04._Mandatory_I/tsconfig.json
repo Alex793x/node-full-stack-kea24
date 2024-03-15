@@ -15,5 +15,4 @@
     "skipLibCheck": true,
   },
   "include": ["*.ts", "public/**/*.ts", "public/pages/**/*.html", "styles/**/*.css", "public/components/**/*.{ts,html}", "public/assets/**/*.{ts,json,svg}", "utils/**/*.ts", "modules/**/*.ts"],
-  "exclude": ["node_modules"]
 }
