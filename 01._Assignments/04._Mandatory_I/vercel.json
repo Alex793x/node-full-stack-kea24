@@ -3,7 +3,7 @@
     "builds": [
       {
         "src": "app.ts",
-        "use": "@node/node"
+        "use": "@now/node"
       }
     ],
     "routes": [
