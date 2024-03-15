@@ -10,13 +10,8 @@
     "start": "node dist/app.js",
     "dev": "npx concurrently \"npm run build:css && npx tsc && npx nodemon app.ts\" \"npm run serve\"",
     "build:css": "postcss public/styles/tailwind.css -o public/styles/style.css",
-    "serve": "browser-sync start --config browser-sync.json",
+    "serve": "browser-sync start --config browser-sync.json"
   },
-  "pre-commit": [
-    "ts.check",
-    "build",
-    "add-build"
-  ],
   "author": "Alex Holmberg",
   "license": "MIT",
   "devDependencies": {
