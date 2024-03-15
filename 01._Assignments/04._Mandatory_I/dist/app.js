@@ -1,18 +1,17 @@
 import express from 'express';
 import { homepagePage, contactPage, aboutPage } from './modules/template_engine/readPages.js';
-import { cookbookContentLoader } from './modules/content_manager/cookbookLoader.js';
+import { cookbookContent } from './modules/template_engine/templatingEngine.js';
 const PORT = 8080;
 const app = express();
 app.use(express.static("public"));
 app.use(express.static("dist"));
 app.use(express.json());
-cookbookContentLoader();
 // Homepage  ------
 app.get('/', (req, res) => {
     res.send(homepagePage);
 });
 app.get("/api/cookbook", (req, res) => {
-    res.send(cookbookContentLoader());
+    res.send(cookbookContent);
 });
 app.get("/contact", (req, res) => {
     res.send(contactPage);

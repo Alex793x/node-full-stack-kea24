@@ -1,5 +1,6 @@
 import fs from "fs";
 const footer = fs.readFileSync("./public/components/footer/footer.html").toString();
+export const cookbookContent = fs.readFileSync("./public/assets/page_json_data/homepage.json").toString();
 export function readPage(path) {
     return fs.readFileSync(path).toString();
 }
