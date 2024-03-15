@@ -13,3 +13,12 @@ export function renderPage(page, config={}) {
      + page
      + footer;
 }
+
+
+
+
+// Nulish coalesce operator ?? ||
+const value = "";
+console.log(value ?? "some other value");
+console.log(value || "some other value");  // type coerce.... tages falsy values and coerce
+
