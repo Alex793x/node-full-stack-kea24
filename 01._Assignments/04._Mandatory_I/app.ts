@@ -1,11 +1,9 @@
 import express, { Request, Response , Application } from 'express';
-import dotenv from 'dotenv';
 
 import { homepagePage, contactPage, aboutPage } from './modules/template_engine/readPages.js';
 import { cookbookContentLoader } from './modules/content_manager/cookbookLoader.js';
 
-//For env File 
-dotenv.config();
+const PORT = 8080;
 
 
 const app: Application = express();
@@ -13,8 +11,6 @@ const app: Application = express();
 app.use(express.static("public"));
 app.use(express.static("dist"));
 app.use(express.json());
-
-const port = (process.env.PORT || 8080);
 
 cookbookContentLoader();
 
@@ -37,6 +33,6 @@ app.get("/about", (req: Request, res: Response) => {
   res.send(aboutPage);
 })
 
-app.listen(port, () => {
-  console.log(`Server is running at http://localhost:${port}`);
+app.listen(PORT, () => {
+  console.log(`Server is running at http://localhost:`, PORT);
 });
