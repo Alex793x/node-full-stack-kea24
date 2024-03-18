@@ -1,0 +1,3 @@
+{
+  "code": "class Person {\n    constructor(name) {\n        this.name = name;\n    }\n\n    normalFunctionGetName() {\n        setTimeout(function () {\n            console.log(`Hello, ${this.name}`);\n        }, 1000);\n    }\n\n    arrowFunctionGetName() {\n        setTimeout(() => {\n            console.log(`Hello, ${this.name}`);\n        }, 1000);\n    }\n}\n\nconst person = new Person(\"Anders\");\nperson.normalFunctionGetName();\nperson.arrowFunctionGetName();"
+}

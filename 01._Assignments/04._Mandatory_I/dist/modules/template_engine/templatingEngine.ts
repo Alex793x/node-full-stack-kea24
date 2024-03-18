@@ -1,7 +1,7 @@
 import fs from "fs"
 
 const footer = fs.readFileSync("./public/components/footer/footer.html").toString();
-export const cookbookContent = fs.readFileSync("./public/assets/page_json_data/homepage.json").toString();
+export const cookbookContent = fs.readFileSync("./public/assets/page_json_data/cookbook_content.json").toString();
 
 interface Config {
     [key: string]: string | undefined;      // This is equilevant to unlimitted tags and addons to the config

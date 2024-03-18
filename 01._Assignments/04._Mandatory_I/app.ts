@@ -1,4 +1,5 @@
 import express, { Request, Response , Application } from 'express';
+import router from "./routers/playRouter.js"
 
 import { homepagePage, contactPage, aboutPage } from './modules/template_engine/readPages.js';
 import { cookbookContent } from './modules/template_engine/templatingEngine.js';
@@ -11,6 +12,7 @@ const app: Application = express();
 app.use(express.static("public"));
 app.use(express.static("dist"));
 app.use(express.json());
+
 
 // Homepage  ------
 app.get('/', (req: Request, res: Response) => {

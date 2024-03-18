@@ -1,0 +1,3 @@
+{
+  "code": "import { Router } from 'express';\nconst router = Router();\n\nrouter.get('/', (req, res) => {\n  res.send({ data: 'Products list ...' });\n});\n\nrouter.post('/', (req, res) => {\n  res.send({ data: 'Product created!' });\n});\n\nexport default router;\n"
+}

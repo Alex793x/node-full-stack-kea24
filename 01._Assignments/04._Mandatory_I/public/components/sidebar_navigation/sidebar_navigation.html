@@ -1,0 +1,13 @@
+<div>
+    <div id="sidebar"
+        class="fixed top-0 left-0 transform -translate-x-full w-64 z-10 bg-slate-100 transition-transform duration-300 min-h-screen flex flex-col justify-center">
+        <ul id="cookbook-sidebar-list" class="w-full flex flex-col gap-4"></ul>
+    </div>
+    <button id="sidebarToggle"
+        class="fixed top-1/2 left-0 z-20 text-xl p-2 bg-blue-500 transition-transform duration-300 text-white">Appendex</button>
+</div>
+
+<script type="module">
+    import { displayCookbookForSidebarNavigation } from '/public/utils/cookbook_render/renderContent.js';
+    displayCookbookForSidebarNavigation();
+</script>

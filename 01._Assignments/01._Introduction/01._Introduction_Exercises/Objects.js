@@ -41,5 +41,16 @@ thisSong.about = "Just a tribute";
 console.log(thisSong)
 
 
+// destruturing object
+const something = {
+    Router: true,
+    Express: true,
+    Request: false,
+};
+
+
+const { Router, Express, Request } = something; // This is called destructuring
+
+
 // --------------------------------------
 

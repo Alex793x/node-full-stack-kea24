@@ -1,0 +1,3 @@
+{
+  "code": "<!DOCTYPE html>\n<html>\n<head>\n  <title>Redirect Example</title>\n</head>\n<body>\n  <script>\n    // Client-side redirection to \"/new-page\"\n    window.location.href = '/new-page';\n  </script>\n</body>\n</html>\n"
+}

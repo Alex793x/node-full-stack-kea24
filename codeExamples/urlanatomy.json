@@ -1,0 +1,3 @@
+{
+  "code": "let url = 'https://www.google.com/search?hl=en&q=test';\n\n{/* \n\nprotocol    domain     endpoint\nhttps://www.google.com/search?hl=en&q=test\n       sub-domain  top-level domain\n\n\npath    query string\n/search?hl=en&q=test\n        query parameters\n\n\npath variable \n*/}"
+}

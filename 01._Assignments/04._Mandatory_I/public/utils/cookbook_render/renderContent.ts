@@ -15,6 +15,15 @@ function fetchAndDisplayCookbookPage(page: number, itemsPerPage: number) {
         });
 }
 
+function fetchAndDisplayCookbookTitle() {
+    return fetch("/api/cookbook")
+        .then(response => response.json())
+        .then((result: CookbookData) => result.data)
+        .catch(error => {
+            throw new Error(`Fetching cookbook title failed: ${error.message}`);
+        });
+}
+
 function appendCodeExamples(containerId: string, codeExamples: string[]) {
     const container = document.getElementById(containerId);
     if (!container) return;
@@ -27,14 +36,25 @@ function appendCodeExamples(containerId: string, codeExamples: string[]) {
 
         const codeElement = document.createElement('code');
         codeElement.textContent = code; // Set as text content to avoid HTML parsing
+
+        // Determine if the snippet is HTML, JavaScript, or YAML
         const isHtmlSnippet = code.trim().startsWith('<!DOCTYPE html>');
-        codeElement.className = isHtmlSnippet ? 'language-html rounded-2xl' : 'language-javascript rounded-2xl';
+        const isYamlSnippet = code.trim().startsWith('{') && code.trim().endsWith('}');
+        let languageClass;
+        if (isHtmlSnippet) {
+            languageClass = 'language-html';
+        } else if (isYamlSnippet) {
+            languageClass = 'language-yaml';
+        } else {
+            languageClass = 'language-javascript';
+        }
+        codeElement.className = `${languageClass} rounded-2xl`;
 
         template.appendChild(codeElement);
         container.appendChild(template);
     });
 
-    //@ts-ignore   We are importing it directly on homepage, so its actually callable anywhere
+    //@ts-ignore   We are importing it directly on the homepage, so it's actually callable anywhere
     hljs.highlightAll();
 }
 
@@ -60,10 +80,20 @@ function displayPageData(data: CookbookContent) {
     updateTextContent('myKeyPoints', data.myKeyPoints ?? '');
 }
 
-export function initContentPage(currentPage: number, itemsPerPage: number) {
+export function initContentPage(itemsPerPage: number) {
+    let currentPage = parseInt(localStorage.getItem('currentPage') || '0', 10);
+
     const prevButton = document.getElementById('prevButton');
     const nextButton = document.getElementById('nextButton');
 
+    const updatePage = (newPage: number) => {
+        currentPage = newPage;
+        // Update currentPage in localStorage whenever it changes
+        localStorage.setItem('currentPage', currentPage.toString());
+        fetchAndDisplayCookbookPage(currentPage, itemsPerPage);
+        updatePrevButtonState();
+        window.scrollTo(0, 0); // Scroll to top
+    };
 
     const updatePrevButtonState = () => {
         if (prevButton) {
@@ -80,9 +110,7 @@ export function initContentPage(currentPage: number, itemsPerPage: number) {
     if (prevButton) {
         prevButton.addEventListener('click', () => {
             if (currentPage > 0) {
-                currentPage -= 1;
-                fetchAndDisplayCookbookPage(currentPage, itemsPerPage);
-                updatePrevButtonState();
+                updatePage(currentPage - 1);
             }
         });
     }
@@ -93,9 +121,7 @@ export function initContentPage(currentPage: number, itemsPerPage: number) {
                 .then(response => response.json())
                 .then((result: CookbookData) => {
                     if (currentPage < Math.ceil(result.data.length / itemsPerPage) - 1) {
-                        currentPage += 1;
-                        fetchAndDisplayCookbookPage(currentPage, itemsPerPage);
-                        updatePrevButtonState(); // Update the state after changing the page
+                        updatePage(currentPage + 1);
                     }
                 });
         });
@@ -103,3 +129,42 @@ export function initContentPage(currentPage: number, itemsPerPage: number) {
 
     fetchAndDisplayCookbookPage(currentPage, itemsPerPage);
 }
+
+export function displayCookbookForSidebarNavigation() {
+    fetchAndDisplayCookbookTitle().then(cookbookContents => {
+        const sidebarList = document.getElementById('cookbook-sidebar-list');
+        if (!sidebarList) return;
+
+        sidebarList.innerHTML = ''; // Clear existing list items
+
+        cookbookContents.forEach((content, index) => {
+            const listItem = document.createElement('li');
+            listItem.textContent = content.title;
+            listItem.className = "cursor-pointer hover:bg-gray-200 ml-4 text-lg gap-2";
+            listItem.addEventListener('click', () => {
+                localStorage.setItem('currentPage', index.toString()); // Store index as currentPage in localStorage
+                initContentPage(1);
+            });
+            sidebarList.appendChild(listItem);
+        });
+
+        const sidebar = document.getElementById('sidebar');
+        const toggleButton = document.getElementById('sidebarToggle');
+
+        toggleButton?.addEventListener('click', () => {
+            sidebar?.classList.toggle('-translate-x-full');
+            // Adjust the toggle button's position based on the sidebar's state. No rotation is applied.
+            if (sidebar?.classList.contains('-translate-x-full')) {
+                // Sidebar is hidden, move toggle button to its initial position
+                toggleButton.style.transform = 'translateX(0px)';
+            } else {
+                // Sidebar is shown, move toggle button alongside the sidebar
+                toggleButton.style.transform = `translateX(${sidebar && sidebar.offsetWidth}px)`;
+            }
+        });
+
+    }).catch(error => {
+        console.error("Failed to display cookbook sidebar navigation:", error);
+    });
+}
+

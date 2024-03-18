@@ -1,0 +1,3 @@
+{
+  "code": "{\n    \"watch\": [\"public/**/*.{ts,css,html}\", \"components/**/*.{ts,html}\",\"modules/**/*.{ts}\", \"assets/**/*.{ts,html,json}\", \"utils/**/*.{ts,html}\", \"app.ts\"],\n    \"ext\": \"ts, css, html, json\",\n    \"ignore\": [\"dist/**/*\"],\n    \"exec\": \"postcss public/styles/tailwind.css -o public/styles/style.css && tsc && node ./dist/app.js\"\n}\n\n"
+}

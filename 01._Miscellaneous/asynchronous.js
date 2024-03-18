@@ -12,6 +12,10 @@ states:
 2: fulfilled
     - resolved
     - rejected
+
+
+Solution 3. Async/Await
+ - Syntactic sugar
 */
 
 new Promise((resolve, reject) => {
@@ -40,17 +44,85 @@ console.log("I'm walking here");
  */
 
 
-function myPromise() {
-    return new Promise((resolve, rejsect) => {
-        setTimeout(() => {
-            const success = true; // condition example
-            success ? resolve("Something good") : rejsect("Something Bad");
-        }, 3000)
-    })
+// function myPromise() {
+//     return new Promise((resolve, rejsect) => {
+//         setTimeout(() => {
+//             const success = true; // condition example
+//             success ? resolve("Something good") : rejsect("Something Bad");
+//         }, 3000)
+//     })
+// }
+
+// myPromise
+// .then((result) => console.log(result))
+// .catch((errorMessage) => console.log(errorMessage));
+
+
+/**
+ * Assignment:
+ * Try to simulate the fetch function
+ * call it myFetch, it should return the promise json()
+ * so that you can call response.json() on it as much as possible try
+ * to imagine how fetch works and simulate the underlying code
+ * 
+ */
+
+// function myFetch(URL, options={}) {
+//     return new Promise((resolve, reject) => {
+//         resolve ({
+//             json: () => new Promise((resolve, response) => {
+//                 resolve({data: "It is working"});
+//             })
+//         })
+//     })
+// }
+
+
+function myFetch(URL, options = {}) {
+    return new Promise((resolve, reject) => {
+
+        const xhr = new XMLHttpRequest();
+
+        // Configure it: GET-request for the URL
+        xhr.open(options.method || 'GET', URL, true);
+
+        // Set headers if there are any
+        if (options.headers) {
+            Object.keys(options.headers).forEach(key => {
+                xhr.setRequestHeader(key, options.headers[key]);
+            });
+        }
+
+        // Handle the response
+        xhr.onload = () => {
+            if (xhr.status >= 200 && xhr.status < 300) {
+                // Resolve the promise with the response text
+                resolve({
+                    json: () => Promise.resolve(JSON.parse(xhr.responseText)),
+                    text: () => Promise.resolve(xhr.responseText)
+                });
+            } else {
+                // Reject the promise if we got an error response
+                reject(new Error(xhr.statusText));
+            }
+        };
+
+        // Handle network errors
+        xhr.onerror = () => {
+            reject(new Error("Network Error"));
+        };
+
+        // Send the request
+        if (options.body) {
+            xhr.send(options.body);
+        } else {
+            xhr.send();
+        }
+    });
 }
 
-myPromise
-.then((result) => console.log(result))
-.catch((errorMessage) => console.log(errorMessage));
 
 
+async function main() {
+    const myPromiseResult = await myPromise();
+}
