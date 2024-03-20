@@ -1,5 +1,5 @@
 {
-  "watch": ["public/**/*.{ts,css,html}", "components/**/*.{ts,html}","modules/**/*.{ts}", "assets/**/*.{ts,html,json}", "utils/**/*.{ts,html}", "app.ts"],
+  "watch": ["public/**/*.{ts,css,html}", "components/**/*.{ts,html}","modules/**/*.{ts}", "assets/**/*.{ts,html,json}", "config/**/*.{ts}","routers/**/*.{ts}", "app.ts"],
   "ext": "ts, css, html, json",
   "ignore": ["dist/**/*"],
   "exec": "postcss public/styles/tailwind.css -o public/styles/style.css && tsc && node ./dist/app.js"

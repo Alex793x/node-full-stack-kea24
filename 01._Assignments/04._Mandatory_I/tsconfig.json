@@ -14,5 +14,14 @@
     "strict": true,
     "skipLibCheck": true,
   },
-  "include": ["*.ts", "public/**/*.ts", "public/pages/**/*.html", "styles/**/*.css", "public/components/**/*.{ts,html}", "public/assets/**/*.{ts,json,svg}", "utils/**/*.ts", "modules/**/*.ts"],
+  "include": [
+    "*.ts", 
+    "public/**/*.ts", 
+    "config/**/*.ts", 
+    "modules/**/*.ts", "config/serverConfig.ts",
+    "public/pages/**/*.html", 
+    "public/components/**/*.{ts,html}", 
+    "public/assets/**/*.{ts,json,svg}", 
+    "styles/**/*.css", 
+  ],
 }
