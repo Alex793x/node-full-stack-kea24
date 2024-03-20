@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    /* Visit https://aka.ms/tsconfig to read more about this file */
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
+    "noImplicitAny": true,
+    "outDir": "dist",
+    "target": "esnext",
+    "module": "esnext",
+    "rootDir": ".",                                 
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+
+    "strict": true,
+    "skipLibCheck": true,
+  },
+  "include": ["*.ts", "public/**/*.ts", "public/pages/**/*.html", "styles/**/*.css", "public/components/**/*.{ts,html}", "public/assets/**/*.{ts,json,svg}", "utils/**/*.ts", "modules/**/*.ts"],
+}
