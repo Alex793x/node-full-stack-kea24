@@ -4,14 +4,6 @@
   "type": "module",
   "description": "A minimal cookbook, with all the description about what we've learned so far, with NodeJs alongside Anders Latif as lector from KEA",
   "main": "app.js",
-  "scripts": {
-    "build": "tsc && rsync -av --exclude='*.ts' public dist/public && ncp modules dist/modules && ncp vercel.json dist/vercel.json && ncp package.json dist/package.json",    
-    "ts.check": "tsc --project tsconfig.json",
-    "start": "node app.js",
-    "dev": "npx concurrently \"npm run build:css && npx tsc && npx nodemon app.ts\" \"npm run serve\"",
-    "build:css": "postcss public/styles/tailwind.css -o public/styles/style.css",
-    "serve": "browser-sync start --config browser-sync.json"
-  },
   "author": "Alex Holmberg",
   "license": "MIT",
   "devDependencies": {
